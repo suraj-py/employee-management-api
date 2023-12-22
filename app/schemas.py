@@ -1,4 +1,4 @@
-from typing import Union
+from typing import Union, Optional
 from pydantic import BaseModel
 
 class UserBase(BaseModel):
@@ -12,3 +12,10 @@ class User(UserBase):
     id: int
     class Config:
         orm_mode = True
+
+class Token(BaseModel):
+    access_token: str
+    token_type: str
+
+class DataToken(BaseModel):
+    id: Optional[str] = None
