@@ -11,7 +11,6 @@ router = APIRouter(
     tags=["Authentication"]
     )
 
-
 @router.post("/register", response_model=schemas.User)
 def register_user(user: schemas.UserCreate, db: Session = Depends(get_db)):
     db_user = utils.get_user_by_email(db=db, email=user.email)

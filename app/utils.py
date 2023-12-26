@@ -76,3 +76,25 @@ def get_user_by_username(db: Session, username: str):
 
 def get_user_by_email(db: Session, email: str):
     return db.query(models.User).filter(models.User.email == email).first()
+
+
+def create_manager(db: Session, managers: schemas.ManagerBase):
+    db_manager = models.Manager(**managers.dict())
+    db.add(db_manager)
+    db.commit()
+    db.refresh(db_manager)
+    return db_manager
+
+def create_employees(db: Session, employees: schemas.EmployeeBase, manager_id: int):
+    db_employee = models.Employee(**employees.dict(), manager_id=manager_id)
+    db.add(db_employee)
+    db.commit()
+    db.refresh(db_employee)
+    return db_employee
+
+
+def get_managers_list(db: Session):
+    return db.query(models.Manager).all()
+
+def get_employees_list(db: Session):
+    return db.query(models.Employee).all()
