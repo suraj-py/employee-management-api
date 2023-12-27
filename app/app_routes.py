@@ -22,6 +22,15 @@ def create_manager(manager: schemas.ManagerBase, db: Session = Depends(get_db)):
 def list_managers(db: Session = Depends(get_db)):
     return utils.get_managers_list(db)
 
+@router.put("/manager/{manager_id}")
+def update_manager(manager_id:int, manager: schemas.ManagerBase, db: Session = Depends(get_db)):
+    mng = db.query(models.Manager).filter(models.Manager.id == manager_id)
+    if not mng.first():
+        raise HTTPException(status_code=404, detail='Employee not found')
+    mng.update(manager.dict())
+    db.commit()
+    return {"Message":"Employee updated successfully"}
+
 @router.delete("/delete")
 def delete_manager(company_id: int, db: Session = Depends(get_db)):
     emp = utils.delete_manager(db=db, company_id=company_id)
@@ -53,5 +62,6 @@ def get_single_employee(employee_id: int, db: Session = Depends(get_db)):
 def delete_employee(company_id: int, db: Session = Depends(get_db)):
     emp = utils.delete_employee(db=db, company_id=company_id)
     return {"Message": "Employee deleted successfully"}
+
 
 
