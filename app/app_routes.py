@@ -22,6 +22,10 @@ def create_manager(manager: schemas.ManagerBase, db: Session = Depends(get_db)):
 def list_managers(db: Session = Depends(get_db)):
     return utils.get_managers_list(db)
 
+@router.delete("/delete")
+def delete_manager(company_id: int, db: Session = Depends(get_db)):
+    emp = utils.delete_manager(db=db, company_id=company_id)
+    return {"Message": "Manager deleted successfully"}
 
 @router.post("/{manager_id}/employee", response_model=schemas.Employee)
 def create_employee(employee: schemas.EmployeeBase, manager_id: int, db: Session = Depends(get_db)):
@@ -35,3 +39,10 @@ def get_single_employee(employee_id: int, db: Session = Depends(get_db)):
     single_employee = db.query(models.Employee).filter(models.Employee.id == employee_id).first()
     if single_employee:
         return single_employee
+
+@router.delete("/employee/delete")
+def delete_employee(company_id: int, db: Session = Depends(get_db)):
+    emp = utils.delete_employee(db=db, company_id=company_id)
+    return {"Message": "Employee deleted successfully"}
+
+

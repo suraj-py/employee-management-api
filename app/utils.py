@@ -97,3 +97,13 @@ def get_managers_list(db: Session):
 
 def get_employees_list(db: Session):
     return db.query(models.Employee).all()
+
+def delete_employee(db: Session, company_id: int):
+    emp = db.query(models.Employee).filter(models.Employee.company_id == company_id).delete()
+    db.commit()
+    return emp
+
+def delete_manager(db: Session, company_id: int):
+    emp = db.query(models.Manager).filter(models.Manager.company_id == company_id).delete()
+    db.commit()
+    return emp
