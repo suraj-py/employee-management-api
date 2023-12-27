@@ -19,6 +19,8 @@ class Manager(Base):
     salary = Column(Float, nullable=False)
     doj=Column(DateTime, nullable=False)
 
+    employees = relationship("Employee", back_populates="managers")
+
 
 class Employee(Base):
     __tablename__ = "employees"
@@ -29,6 +31,6 @@ class Employee(Base):
     designation = Column(String(100), nullable=False)
     salary = Column(Float, nullable=False)
     doj=Column(DateTime, nullable=False)
-
     manager_id = Column(Integer, ForeignKey("managers.id"))
 
+    managers = relationship("Manager", back_populates="employees")

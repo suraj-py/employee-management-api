@@ -92,7 +92,6 @@ def create_employees(db: Session, employees: schemas.EmployeeBase, manager_id: i
     db.refresh(db_employee)
     return db_employee
 
-
 def get_managers_list(db: Session):
     return db.query(models.Manager).all()
 
