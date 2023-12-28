@@ -8,7 +8,7 @@ from datetime import timedelta, datetime
 from dependencies import get_db
 import models, schemas
 
-outh2_scheme = OAuth2PasswordBearer(tokenUrl='/auth/login')
+outh2_scheme = OAuth2PasswordBearer(tokenUrl='/login')
 
 SECRET_KEY = "75cd41725576d0a53ddf8d2c4b6daa3b0f35e5816b78c9a204368b752cf99e96"
 ALGORITHM = "HS256"
