@@ -42,11 +42,11 @@ def get_managers_list(db: Session, skip: int = 0, limit: int = 10):
     return db.query(models.Manager).offset(skip).limit(limit).all()
 
 # get employee by company
-def get_manager_by_company_id(db: Session, company_id: int):
+def get_manager_by_company_id(db: Session, company_id: str):
     return db.query(models.Manager).filter(models.Manager.company_id == company_id).first()
 
 # delete manager by company id
-def delete_manager(db: Session, company_id: int):
+def delete_manager(db: Session, company_id: str):
     emp = db.query(models.Manager).filter(models.Manager.company_id == company_id).delete()
     db.commit()
     return emp
@@ -65,18 +65,18 @@ def get_employee_list(db: Session, skip: int = 0, limit: int = 10):
     return db.query(models.Employee).offset(skip).limit(limit).all()
 
 # get employees list by manager name
-def get_emp_list_by_manager(manager_company_id: int, db: Session):
+def get_emp_list_by_manager(manager_company_id: str, db: Session):
     manager = db.query(models.Manager).filter(models.Manager.company_id == manager_company_id).first()
     if manager:
         return manager.employees
     return {"Message":"Invalid manager company id"}
 
 # get employee by company
-def get_employees_by_company_id(db: Session, company_id: int):
+def get_employees_by_company_id(db: Session, company_id: str):
     return db.query(models.Employee).filter(models.Employee.company_id == company_id).first()
 
 # delete employee by company_id
-def delete_employee(db: Session, company_id: int):
+def delete_employee(db: Session, company_id: str):
     emp = db.query(models.Employee).filter(models.Employee.company_id == company_id).delete()
     db.commit()
     return emp

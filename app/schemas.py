@@ -2,6 +2,7 @@ from typing import Union, Optional, List
 from pydantic import BaseModel, EmailStr
 from datetime import date
 
+from utils import generate_company_id
 # User's pydantic models or schemes
 class UserBase(BaseModel):
     username: str
@@ -25,8 +26,9 @@ class DataToken(BaseModel):
     id: Optional[str] = None
 
 # Employee's pydantic models or schemes
+id = generate_company_id('M')
 class EmployeeBase(BaseModel):
-    company_id: int
+    company_id: str = id
     name: str
     email: EmailStr
     designation: str
@@ -40,8 +42,9 @@ class Employee(EmployeeBase):
         orm_mode = True
 
 # Manager's pydantic models or schemes
+id = generate_company_id('M')
 class ManagerBase(BaseModel):
-    company_id: int
+    company_id: str = id
     name: str
     email: EmailStr
     designation: str

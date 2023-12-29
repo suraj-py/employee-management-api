@@ -12,7 +12,7 @@ class User(Base):
 
 class Manager(Base):
     __tablename__ = "managers"
-    id = Column(Integer, primary_key=True, index=True)
+    id = Column(String, primary_key=True, index=True)
     company_id = Column(Integer, nullable=False)
     name = Column(String(100), nullable=False)
     email = Column(String, unique=True, index=True, nullable=False)
@@ -25,7 +25,7 @@ class Manager(Base):
 
 class Employee(Base):
     __tablename__ = "employees"
-    id = Column(Integer, primary_key=True, index=True)
+    id = Column(String, primary_key=True, index=True)
     company_id = Column(Integer, nullable=False)
     name = Column(String(100), nullable=False)
     email = Column(String, unique=True, index=True, nullable=False)
