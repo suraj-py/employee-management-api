@@ -40,7 +40,7 @@ class EmployeeBase(BaseModel):
 
 class Employee(EmployeeBase):
     id: int
-    manager_id: int
+    manager_id: Optional[int]
     class Config:
         orm_mode = True
 

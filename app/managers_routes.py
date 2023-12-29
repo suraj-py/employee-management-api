@@ -20,8 +20,12 @@ def create_manager(manager: schemas.ManagerBase, db: Session = Depends(get_db)):
     return curd.create_manager(db=db, managers=manager)
 
 @router.get("/all_managers", response_model=List[schemas.Manager])
-def list_managers(db: Session = Depends(get_db)):
-    return curd.get_managers_list(db)
+def list_managers(skip: int=0, limit: int=10, db: Session = Depends(get_db)):
+    return curd.get_managers_list(db=db, skip=skip, limit=limit)
+
+@router.get("/{company_id}", response_model=schemas.Manager)
+def single_manager(company_id: int, db: Session = Depends(get_db)):
+    return curd.get_manager_by_company_id(db=db, company_id=company_id)
 
 @router.put("/{manager_id}")
 def update_manager(manager_id:int, manager: schemas.ManagerBase, db: Session = Depends(get_db)):
