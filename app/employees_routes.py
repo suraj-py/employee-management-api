@@ -5,11 +5,17 @@ from typing import List
 
 from database import SessionLocal, engine
 from dependencies import get_db
+from role_checker import RoleChecker
 import schemas, models, curd
+
+
+allow_create_read_resource = RoleChecker(["admin", "manager"])
+allow_create_resource = RoleChecker(["admin", "manager", "employee"])
 
 router = APIRouter(
     prefix="/employee",
-    tags=["Employees"]
+    tags=["Employees"],
+    dependencies = [Depends(allow_create_read_resource)],
     )
 
 @router.post("/", response_model=schemas.Employee)
@@ -36,12 +42,12 @@ def update_employee(company_id:int, employee: schemas.EmployeeBase, db: Session 
     db.commit()
     return {"Message":"Employee updated successfully"}
 
-@router.get("/{company_id}", response_model=schemas.Employee)
+@router.get("/{company_id}", response_model=schemas.Employee, dependencies=[Depends(allow_create_resource)])
 def get_single_employee(company_id: int, db: Session = Depends(get_db)):
     single_employee = emp = curd.get_employees_by_company_id(db=db, company_id=company_id)
     return single_employee
 
-@router.delete("/delete")
+@router.delete("/delete", dependencies=[Depends(allow_create_resource)])
 def delete_employee(company_id: int, db: Session = Depends(get_db)):
     emp = curd.delete_employee(db=db, company_id=company_id)
     return {"Message": "Employee deleted successfully"}

@@ -5,7 +5,8 @@ from datetime import date
 # User's pydantic models or schemes
 class UserBase(BaseModel):
     username: str
-    email: EmailStr
+    email: Optional[EmailStr]
+    role: str
 
 class UserCreate(UserBase):
     password: str

@@ -8,6 +8,7 @@ class User(Base):
     username = Column(String(50), nullable=False)
     email = Column(String, unique=True, index=True, nullable=False)
     hash_password = Column(String(100), nullable=False)
+    role = Column(String(20), nullable=False)
 
 class Manager(Base):
     __tablename__ = "managers"

@@ -6,17 +6,20 @@ from database import SessionLocal, engine
 from dependencies import get_db
 from curd import create_user, get_user_by_username, get_user_by_email
 from utils import verify_password
-from oauth2 import create_access_token
+from oauth2 import create_access_token, get_current_user, outh2_scheme
+from role_checker import RoleChecker
 import schemas, models
 
 models.Base.metadata.create_all(bind=engine)
+
+allow_create_resource = RoleChecker(["admin"])
 
 router = APIRouter(
     prefix="",
     tags=["Authentication"]
     )
 
-@router.post("/admin/register", response_model=schemas.User)
+@router.post("/admin/register", response_model=schemas.User, dependencies=[Depends(allow_create_resource)])
 def register_user(user: schemas.UserCreate, db: Session = Depends(get_db)):
     db_user = get_user_by_email(db=db, email=user.email)
     if db_user:
@@ -36,4 +39,5 @@ def login_user(userdetails: OAuth2PasswordRequestForm = Depends(), db: Session =
     access_token = create_access_token(data={"user_id":user.id})
 
     return {"access_token":access_token, "token_type": "bearer"}
+
 
