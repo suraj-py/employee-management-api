@@ -26,7 +26,7 @@ class DataToken(BaseModel):
     id: Optional[str] = None
 
 # Employee's pydantic models or schemes
-id = generate_company_id('M')
+id = generate_company_id('E')
 class EmployeeBase(BaseModel):
     company_id: str = id
     name: str

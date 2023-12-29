@@ -44,3 +44,4 @@ def update_manager(manager_id:int, manager: schemas.ManagerBase, db: Session = D
 def delete_manager(company_id: str, db: Session = Depends(get_db)):
     emp = curd.delete_manager(db=db, company_id=company_id)
     return {"Message": "Manager deleted successfully"}
+
