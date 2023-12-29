@@ -2,8 +2,10 @@ from sqlalchemy import Column, ForeignKey, Integer, String, Boolean, Float, Date
 from sqlalchemy.orm import relationship
 from database import Base
 
+# alembic config
 target_metadata = Base.metadata
 
+# User model
 class User(Base):
     __tablename__ = "users"
     id = Column(Integer, primary_key=True, index=True)
@@ -12,6 +14,7 @@ class User(Base):
     hash_password = Column(String(100), nullable=False)
     role = Column(String(20), nullable=False)
 
+# Manager model
 class Manager(Base):
     __tablename__ = "managers"
     id = Column(Integer, primary_key=True, index=True)
@@ -24,7 +27,7 @@ class Manager(Base):
 
     employees = relationship("Employee", back_populates="managers")
 
-
+# Employee model
 class Employee(Base):
     __tablename__ = "employees"
     id = Column(Integer, primary_key=True, index=True)

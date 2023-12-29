@@ -14,6 +14,7 @@ SECRET_KEY = "75cd41725576d0a53ddf8d2c4b6daa3b0f35e5816b78c9a204368b752cf99e96"
 ALGORITHM = "HS256"
 ACCESS_TOKEN_EXPIRE_MINUTES = 30
 
+# create jwt access token
 def create_access_token(data: dict):
     to_encode = data.copy()
     expire = datetime.utcnow() + timedelta(minutes=ACCESS_TOKEN_EXPIRE_MINUTES)
@@ -23,6 +24,7 @@ def create_access_token(data: dict):
 
     return encode_jwt
 
+# verifing access token
 def verify_token_access(token: str, credentials_exception):
     try:
         payload = jwt.decode(token, SECRET_KEY, algorithms=ALGORITHM)
@@ -38,6 +40,7 @@ def verify_token_access(token: str, credentials_exception):
 
     return token_data
 
+# get current user
 def get_current_user(token: str = Depends(outh2_scheme), db: Session = Depends(get_db)):
     credentials_exception = HTTPException(status_code=status.HTTP_401_UNAUTHORIZED,
                                 detail="Could not Validate Credentials",
