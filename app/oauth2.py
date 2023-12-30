@@ -10,14 +10,16 @@ import models, schemas
 
 outh2_scheme = OAuth2PasswordBearer(tokenUrl='/login')
 
-SECRET_KEY = "75cd41725576d0a53ddf8d2c4b6daa3b0f35e5816b78c9a204368b752cf99e96"
+SECRET_KEY = "5e9332a72e9910e783d06d2820634994fc55484c26056741731caf20f084d990"
 ALGORITHM = "HS256"
 ACCESS_TOKEN_EXPIRE_MINUTES = 30
 
 # create jwt access token
 def create_access_token(data: dict):
     to_encode = data.copy()
+
     expire = datetime.utcnow() + timedelta(minutes=ACCESS_TOKEN_EXPIRE_MINUTES)
+
     to_encode.update({"expire": expire.strftime("%Y-%m-%d %H:%M:%S")})
 
     encode_jwt = jwt.encode(to_encode, SECRET_KEY, ALGORITHM)
@@ -27,15 +29,15 @@ def create_access_token(data: dict):
 # verifing access token
 def verify_token_access(token: str, credentials_exception):
     try:
-        payload = jwt.decode(token, SECRET_KEY, algorithms=ALGORITHM)
+        payload = jwt.decode(token, SECRET_KEY, algorithms=[ALGORITHM])
 
         id: str = payload.get("user_id")
 
         if id is None:
             raise credentials_exception
         token_data = schemas.DataToken(id=id)
-    except JWTError as e:
-        print(e)
+
+    except JWTError:
         raise credentials_exception
 
     return token_data
@@ -51,3 +53,6 @@ def get_current_user(token: str = Depends(outh2_scheme), db: Session = Depends(g
     user = db.query(models.User).filter(models.User.id == token.id).first()
 
     return user
+
+def get_current_user_role(playload: str = Depends(get_current_user)):
+    print(playload)

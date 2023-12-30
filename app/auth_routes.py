@@ -6,7 +6,7 @@ from database import SessionLocal, engine
 from dependencies import get_db
 from curd import create_user, get_user_by_username, get_user_by_email
 from utils import verify_password
-from oauth2 import create_access_token, get_current_user, outh2_scheme
+from oauth2 import create_access_token, outh2_scheme, get_current_user
 from role_checker import RoleChecker
 import schemas, models
 
@@ -43,3 +43,6 @@ async def login_user(userdetails: OAuth2PasswordRequestForm = Depends(), db: Ses
     return {"access_token":access_token, "token_type": "bearer"}
 
 
+@router.get("/user/me")
+async def user(user: schemas.UserBase = Depends(get_current_user)):
+    return user

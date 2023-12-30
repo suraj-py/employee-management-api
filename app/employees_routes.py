@@ -8,7 +8,6 @@ from dependencies import get_db
 from role_checker import RoleChecker
 import schemas, models, curd
 
-
 allow_create_read_resource = RoleChecker(["admin", "manager"])
 allow_create_resource = RoleChecker(["admin", "manager", "employee"])
 
