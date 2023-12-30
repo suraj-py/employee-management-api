@@ -16,6 +16,7 @@ python-multipart = "*"
 alembic = "*"
 pydantic = "<2"
 pydantic-core = "<2"
+python-dotenv = "*"
 
 [requires]
 python_version = "3.9"
