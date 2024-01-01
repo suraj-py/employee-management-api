@@ -1,8 +1,14 @@
+import os
+import uvicorn
 from fastapi import FastAPI, Depends
 from fastapi.middleware.cors import CORSMiddleware
+from dotenv import load_dotenv
+
 from app import auth_routes
 from app import managers_routes
 from app import employees_routes
+
+load_dotenv()
 
 # creating FastAPI object
 app = FastAPI(
@@ -34,3 +40,10 @@ app.include_router(managers_routes.router)
 app.include_router(employees_routes.router)
 
 
+if __name__ == "__main__":
+    try:
+        port = os.getenv("PORT", "5000")
+        port = int(port)
+    except ValueError:
+        port = 5000
+    uvicorn.run("main:app", host='0.0.0.0', port=port, log_level="info")
