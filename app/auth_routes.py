@@ -15,12 +15,12 @@ models.Base.metadata.create_all(bind=engine)
 allow_create_resource = RoleChecker(["admin"])
 
 router = APIRouter(
-    prefix="",
+    prefix="/company",
     tags=["Authentication"],
     )
 
 # create a new user
-@router.post("/admin/register", response_model=schemas.User, dependencies=[Depends(allow_create_resource)])
+@router.post("/register", response_model=schemas.User, dependencies=[Depends(allow_create_resource)])
 async def register_user(user: schemas.UserCreate, db: Session = Depends(get_db)):
     db_user = get_user_by_email(db=db, email=user.email)
     if db_user:
@@ -43,6 +43,6 @@ async def login_user(userdetails: OAuth2PasswordRequestForm = Depends(), db: Ses
     return {"access_token":access_token, "token_type": "bearer"}
 
 
-@router.get("/user/me")
+@router.get("/user")
 async def user(user: schemas.UserBase = Depends(get_current_user)):
     return user
