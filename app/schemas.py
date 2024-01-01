@@ -3,7 +3,7 @@ from pydantic import BaseModel, EmailStr
 from datetime import date
 from typing_extensions import Annotated
 
-from utils import generate_company_id
+from app.utils import generate_company_id
 
 # User's pydantic models or schemes
 class UserBase(BaseModel):

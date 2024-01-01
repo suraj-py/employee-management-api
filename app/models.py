@@ -1,6 +1,6 @@
 from sqlalchemy import Column, ForeignKey, Integer, String, Boolean, Float, DateTime
 from sqlalchemy.orm import relationship
-from database import Base
+from app.database import Base
 
 # alembic config
 target_metadata = Base.metadata

@@ -7,12 +7,13 @@ from datetime import timedelta, datetime
 from dotenv import load_dotenv
 import os
 
-from dependencies import get_db
-import models, schemas
+from app.dependencies import get_db
+from app import models
+from app import schemas
 
 load_dotenv()
 secret_key = os.getenv("SECRET_KEY")
-outh2_scheme = OAuth2PasswordBearer(tokenUrl='/login')
+outh2_scheme = OAuth2PasswordBearer(tokenUrl='/company/login')
 
 SECRET_KEY = secret_key
 ALGORITHM = "HS256"

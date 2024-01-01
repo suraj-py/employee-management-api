@@ -1,9 +1,10 @@
 from fastapi import Depends, HTTPException, status
 from sqlalchemy.orm import Session
 
-from dependencies import get_db
-from utils import hash_password
-import models, schemas
+from app.dependencies import get_db
+from app.utils import hash_password
+from app import models
+from app import schemas
 
 # util functions for users
 # create user

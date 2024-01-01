@@ -1,8 +1,8 @@
 from fastapi import FastAPI, Depends
 from fastapi.middleware.cors import CORSMiddleware
-import auth_routes
-import managers_routes
-import employees_routes
+from app import auth_routes
+from app import managers_routes
+from app import employees_routes
 
 # creating FastAPI object
 app = FastAPI(

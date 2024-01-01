@@ -3,10 +3,12 @@ from sqlalchemy.orm import Session
 from fastapi.encoders import jsonable_encoder
 from typing import List
 
-from database import SessionLocal, engine
-from dependencies import get_db
-from role_checker import RoleChecker
-import schemas, models, curd
+from app.database import SessionLocal, engine
+from app.dependencies import get_db
+from app.role_checker import RoleChecker
+from app import schemas
+from app import models
+from app import curd
 
 allow_create_read_resource = RoleChecker(["admin", "manager"])
 allow_create_resource = RoleChecker(["admin", "manager", "employee"])

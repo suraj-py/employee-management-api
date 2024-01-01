@@ -1,7 +1,7 @@
 from typing import List
 from fastapi import Depends, HTTPException
-from schemas import User
-from oauth2 import get_current_user
+from app.schemas import User
+from app.oauth2 import get_current_user
 
 class RoleChecker:
     def __init__(self, allowed_roles: List):

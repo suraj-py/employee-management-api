@@ -2,13 +2,14 @@ from fastapi import APIRouter, Depends, HTTPException, status
 from sqlalchemy.orm import Session
 from fastapi.security import OAuth2PasswordRequestForm
 
-from database import SessionLocal, engine
-from dependencies import get_db
-from curd import create_user, get_user_by_username, get_user_by_email
-from utils import verify_password
-from oauth2 import create_access_token, outh2_scheme, get_current_user
-from role_checker import RoleChecker
-import schemas, models
+from app.database import SessionLocal, engine
+from app.dependencies import get_db
+from app.curd import create_user, get_user_by_username, get_user_by_email
+from app.utils import verify_password
+from app.oauth2 import create_access_token, outh2_scheme, get_current_user
+from app.role_checker import RoleChecker
+from app import schemas
+from app import models
 
 models.Base.metadata.create_all(bind=engine)
 
