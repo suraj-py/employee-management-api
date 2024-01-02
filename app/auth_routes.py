@@ -21,7 +21,7 @@ router = APIRouter(
     )
 
 # create a new user
-@router.post("/register", response_model=schemas.User, dependencies=[Depends(allow_create_resource)])
+@router.post("/register", response_model=schemas.User)
 async def register_user(user: schemas.UserCreate, db: Session = Depends(get_db)):
     db_user = get_user_by_email(db=db, email=user.email)
     if db_user:
