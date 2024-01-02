@@ -3,6 +3,8 @@
 
 Develop an RESTfull API for managing employee records at your company.The API is build using FastAPI, SQLAlchemy and, PostgreSQL.
 
+## Try & Test the API
+https://empapi.applikuapp.com/docs
 
 ## API Reference
 
@@ -81,9 +83,9 @@ Start the server
 
 
 ## Useful resources
-- (https://fastapi.tiangolo.com/)
-- (https://medium.com/@kevinkoech265/jwt-authentication-in-fastapi-building-secure-apis-ce63f4164eb2)
-- (https://dev.to/moadennagi/role-based-access-control-using-fastapi-h59)
+- https://fastapi.tiangolo.com/
+- https://medium.com/@kevinkoech265/jwt-authentication-in-fastapi-building-secure-apis-ce63f4164eb2
+- https://dev.to/moadennagi/role-based-access-control-using-fastapi-h59
 
 
 

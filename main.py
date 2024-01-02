@@ -10,10 +10,18 @@ from app import employees_routes
 
 load_dotenv()
 
+description = '''
+    User credentials for testing the API
+    username: admin
+    password: 1234
+
+    Projects github repo: https://github.com/suraj-py/employee-management-api
+'''
 # creating FastAPI object
 app = FastAPI(
     title = "Employee Management API",
-    description = "Helps you manage employee details at your company.",
+    summary = "Helps you manage employee details at your company.",
+    description = description,
     version="0.0.1",
     contact={
         "name": "Suraj Mhatre",
